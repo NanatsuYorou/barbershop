@@ -103,15 +103,10 @@ export default {
     margin: 50px auto;
 }
 main{
-    width: 940px;
+    width: 65%;
     margin: 0 auto;
 }
-h2, h3{
-    font-size: 30px;
-    line-height: 42px;
-    margin: 0;
-    margin-bottom: 30px;
-}
+
 h3::after{
     content: '';
     width: 20px;
@@ -138,7 +133,7 @@ h3::after{
 }
 
 .section-item{
-    width: 940px;
+    width: 100%;
     height: 420px;
     padding: 50px 40px 0 40px;
     display: flex;
@@ -264,7 +259,7 @@ time{
 
 .articles{
     display: flex;
-    width: 940px;
+    width: 100%;
     flex-wrap: wrap;
 }
 

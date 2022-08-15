@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header />
-    <IndexPage />
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <Footer />
   </div>
 </template>
@@ -9,12 +11,11 @@
 <script>
 import Header from './components/HeaderComponent.vue'
 import Footer from './components/FooterComponent.vue'
-import IndexPage from './pages/IndexPage.vue'
 
 export default {
   name: 'App',
   components: {
-    Header, Footer, IndexPage,
+    Header, Footer
   }
 }
 </script>
@@ -34,6 +35,16 @@ body{
   text-transform: uppercase;
   margin: 0;
   background-image: url('@/images/background.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h2, h3{
+    font-size: 30px;
+    line-height: 42px;
+    margin: 0;
+    margin-bottom: 30px;
 }
 
 a{

@@ -5,7 +5,7 @@
             <h2 class="visually-hidden">О нас</h2>
             <p>БАРБЕРШОП «БОРОДИНСКИЙ»</p>
             <p>АДРЕС: Г. САНКТ-ПЕТЕРБУРГ, Б. КОНЮШЕННАЯ, Д. 19/8</p>
-            <a href="">Как нас найти?</a>
+            <router-link to="">Как нас найти?</router-link>
             <p>ТЕЛЕФОН: +7 (495) 666-02-66</p>
         </section>
 
@@ -13,9 +13,9 @@
             <h2 class="visually-hidden">Мы в соц. сетях</h2>
             <p>Давайте дружить!</p>
             <ul>
-                <li><a href="" class="media__link"><img src="@/images/vk.svg" alt="ВК"></a></li>
-                <li><a href="" class="media__link"><img src="@/images/facebook.svg" alt="Фейсбук"></a></li>
-                <li><a href="" class="media__link"><img src="@/images/instagram.svg" alt="Инстаграм"></a></li>
+                <li><router-link to="" class="media__link"><img src="@/images/vk.svg" alt="ВК"></router-link></li>
+                <li><router-link to="" class="media__link"><img src="@/images/facebook.svg" alt="Фейсбук"></router-link></li>
+                <li><router-link to="" class="media__link"><img src="@/images/instagram.svg" alt="Инстаграм"></router-link></li>
             </ul>
         </section>
 
@@ -39,7 +39,7 @@ export default {
     width: 100%;
     background-color: rgb(33, 33, 33);
     &__container{
-        width: 940px;
+        width: 65%;
         height: 190px;
         margin: 0 auto;
         display: flex;

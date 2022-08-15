@@ -2,20 +2,31 @@
     <header>
         <div class="header__container">
             <ul>
-                <li><a href="">ИНФОРМАЦИЯ</a></li>
-                <li><a href="">НОВОСТИ</a></li>
-                <li><a href="">ПРАЙС-ЛИСТ</a></li>
-                <li><a href="">МАГАЗИН</a></li>
-                <li><a href="">КОНТАКТЫ</a></li>
+                <li v-if="logoHidden"><router-link to="/"><img src="@/images/logo.svg" alt=""></router-link></li>
+                <li><router-link to="">ИНФОРМАЦИЯ</router-link></li>
+                <li><router-link to="">НОВОСТИ</router-link></li>
+                <li><router-link to="">ПРАЙС-ЛИСТ</router-link></li>
+                <li><router-link to="/shop">МАГАЗИН</router-link></li>
+                <li><router-link to="">КОНТАКТЫ</router-link></li>
             </ul>
-        <a href="" class="login-link">Вход</a>
+        <router-link to="" class="login-link">Вход</router-link>
         </div>
     </header>
 </template>
 
 <script>
 export default {
-
+    computed: {
+        logoHidden(){
+            let logoHidden
+           if (this.$route.path !== '/')
+                logoHidden = this.$route.path
+            else
+                logoHidden = false
+           console.log(logoHidden)
+           return logoHidden
+        }
+    }
 }
 </script>
 
@@ -28,7 +39,7 @@ header{
     background-color: #000;
 }
 .header__container{
-    width: 960px;
+    width: 65%;
     height: 70px;
     margin: 0 auto;
     display: flex;
