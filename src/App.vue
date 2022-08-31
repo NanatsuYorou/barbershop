@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Header />
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <div class="content">
+        <router-view></router-view>
+    </div>
     <Footer />
   </div>
 </template>
@@ -20,21 +20,31 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+html{
+height: 100%;
+width: 100%;
+}
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 body{
-  font-family: "Times New Roman", sans-serif;
+  height: 100%;   
   color: #fff;
   font-size: 14px;
   line-height: 24px;
   text-transform: uppercase;
   margin: 0;
   background-image: url('@/images/background.png');
+  background-color: #000;
   background-position: 0 0;
   background-repeat: no-repeat;
   background-size: cover;
@@ -60,6 +70,23 @@ li{
   list-style: none;
 }
 
+.button{
+    background-color: #000;
+    color: #fff;
+    &:hover{
+        cursor: pointer;
+        background-color: #663d15;
+        border: none;
+        color: #fff;
+    }
+    &:active{
+        background-color: #663d15;
+        color: #fff;
+        border: none;
+    }
+}
+
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -71,5 +98,11 @@ li{
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+</style>
+
+<style lang="scss" scoped>
+.content{
+  flex-grow: 1;
 }
 </style>

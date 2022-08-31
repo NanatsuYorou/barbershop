@@ -45,7 +45,7 @@
             <div class="column">
                 <h2>Фотогалерея</h2>
                 <figure class="galery__content">
-                    <a href="#"><img src="@/images/galery.png" width="286" height="164" alt="Интерьер"></a>
+                    <a href="#"><img src="@/images/galery.png"   alt="Интерьер"></a>
                 </figure>
                 <div class="galery__buttons-box">
                     <button class="button galery__button galery__button-prev" type="button">Назад</button>
@@ -70,19 +70,19 @@
                 <form class="form" action="">
                     <label for="">
                         <p>Дата</p>
-                        <input type="text" placeholder="08.10.2017">
+                        <input type="text" class="form__input" placeholder="08.10.2017">
                     </label>
                     <label for="">
                         <p>Время</p>
-                        <input type="text" placeholder="10:00">
+                        <input type="text" class="form__input" placeholder="10:00">
                     </label>
                     <label for="">
                         <p>Ваше имя</p>
-                        <input type="text" placeholder="Борода">
+                        <input type="text" class="form__input" placeholder="Борода">
                     </label>
                     <label for="">
                         <p>Телефон</p>
-                        <input type="text" placeholder="+7 123-456-78-90">
+                        <input type="text" class="form__input" placeholder="+7 123-456-78-90">
                     </label>
                     <button class="button button-submit" type="submit">Отправить</button>
                 </form>
@@ -103,6 +103,7 @@ export default {
     margin: 50px auto;
 }
 main{
+    height: 100%;
     width: 65%;
     margin: 0 auto;
 }
@@ -120,7 +121,7 @@ h3::after{
 }
 
 .button{
-    width: 140px;
+    max-width: 140px;
     height: 45px;
     background-color: #000;
     color: #fff;
@@ -134,11 +135,13 @@ h3::after{
 
 .section-item{
     width: 100%;
-    height: 420px;
+    min-height: 420px;
+    box-sizing: border-box;
     padding: 50px 40px 0 40px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
+    padding-bottom: 50px;
     color: #000;
     background-color: white; // На случай если фон не подгрузится
     background-image: url('@/images/line.png'), url('@/images/white-noise.png');
@@ -148,7 +151,8 @@ h3::after{
 }
 
 .column{
-    width: 390px;
+    width: 50%;
+    max-width: 390px;
     box-sizing: border-box;
     padding-left: 40px;
     padding-right: 40px;
@@ -180,27 +184,29 @@ h3::after{
         margin: 0;
         margin-bottom: 30px;
     }
-    &__item:last-child{
-        margin-bottom: 0;
-    }
 }
 
 .galery{
     &__content{
+        width: 100%;
         margin: 0;
-        img{
-            border: 7px solid white;
+        a{
+            display: block;
+            width: 100%;
+            img{
+                width: 100%!important;
+                border: 7px solid white;
+            }
         }
     }
     &__buttons-box{
+        width: 100%;
         display: flex;
+        justify-content: space-between;
     }
     &__button{
+        width: 40%;
         margin-top: 40px;
-        margin-right: 20px;
-    }
-    &_button:last-child{
-        margin-right: 0;
     }
 }
 
@@ -216,22 +222,28 @@ h3::after{
         margin-bottom: 0;   
     }
     &__buttons{
-        width: 300px;
+        width: 100%;
         display: flex;
         justify-content: space-between;
+        margin-top: 25px;
         padding-bottom: 10px;
+        button{
+            width: 40%;
+        }
     }
 }
 
 .form{
-    width: 300px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
-    row-gap: 15px; 
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     label{
         display: flex;
         flex-direction: column;
+        width: 140px;
+        margin-bottom: 15px;    
+        margin-right: 15px;
         p{
             font-weight: 700;
             margin: 0;
@@ -243,11 +255,19 @@ h3::after{
     input{
         margin: 0;
         padding: 10px;
-        width: 140px;
+        width: 100%;
+        max-width: 100%;
         height: 40px;
         box-sizing: border-box;
         border: 2px solid #000;
     }
+    button{
+        margin-bottom: 20px;
+    }
+}
+
+.button-submit{
+    margin: 20px auto;
 }
 
 time{
@@ -263,4 +283,117 @@ time{
     flex-wrap: wrap;
 }
 
+@media (max-width: 1360px) {
+    .form{
+        justify-content: center;
+        label{
+            width: 80%;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+
+    main{
+        width: 90%;
+    }
+
+    .section-item{
+        height: fit-content;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 40px;
+        box-sizing: border-box;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        background-image: url('@/images/white-noise.png');
+        background-position: 0 0;
+        background-repeat: repeat;
+    }
+    .column{
+        position: relative;
+        width: 80%;
+        height: 50%;
+        max-width: none;
+        padding: 25px;
+        margin: 0;
+        margin-top: 25px;
+        box-sizing: border-box;
+    }
+
+    .column:first-child:after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        background-image: url('@/images/line-rotated.png');
+        background-position: bottom center;
+        background-repeat: no-repeat;
+    }
+
+    .galery{
+        &__buttons-box{
+            button{
+                margin: 0;
+            }
+        }
+    }
+    .form{
+        justify-content: space-between;
+        label{
+            width: 45%;
+        }
+    }
+}
+
+@media (max-width: 720px) {
+    main{
+        font-size: 16px;
+    }
+
+    .logo{
+        width: 80%; 
+    }
+
+    .feature{
+        &__list{
+            flex-direction: column;
+            h3{
+                padding-left: 50px; 
+                margin-bottom: 25px;
+            }
+            h3::after{
+                top: -5px;
+                left: 0;
+            }
+        }
+        &__item{
+            width: 100%;
+            text-align: left;
+        }
+    }
+}
+
+@media (max-width: 500px){
+    main{
+        font-size: 18px;
+    }
+    .form{
+        label{
+            width: 90%;
+        }
+    }
+    .contact__buttons{
+        flex-direction: column;
+        align-items: center;
+        button{
+            width: 70%;
+            margin-bottom: 15px;
+        }
+        button:last-child{
+            margin-bottom: 0;
+        }
+    }
+}
 </style>

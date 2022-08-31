@@ -65,11 +65,13 @@ ul{
 
 .media{
     width: 150px;
+    margin: 0 15px;
     &__link{
         display: flex;
         background-color: #000;
         width: 45px;
         height: 45px;
+        margin: 0 5px;
         align-items: center;
         justify-content: center;
     }
@@ -77,7 +79,9 @@ ul{
 
 .author{
     width: 150px;
+    margin: 0 15px;
     &__name{
+        margin: 0 auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -86,4 +90,50 @@ ul{
         background-color: #000;
     }
 }
+
+@media (max-width: 848px){
+ .about-us{
+        display: none;
+    }
+}
+
+@media (max-width: 767px){
+    .footer{
+        &__container{
+            width: 90%;
+        }
+    }
+    .author{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 40%;
+        height: 70%;
+        &__name{
+            margin: 0 auto;
+            width: 70%;
+            font-size: 12px;
+        }
+    }
+    .media{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 40%;
+        height: 70%;
+        box-sizing: border-box;
+        margin: 0;
+        &__link{
+            width: 35px;
+            height: 35px;
+            img{
+                width: 50%;
+                height: 50%;
+            }
+        }
+    }
+}
+
+
+
 </style>

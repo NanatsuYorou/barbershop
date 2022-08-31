@@ -12,68 +12,35 @@
                     <form action="">
                         <h3>Производители</h3>
                         <ul class="filters__manufacturers">
-                            <li class="filters__items"><label class="filters__checkbox-indicator" for="Baxster"><input class="visually-hidden checkbox" id="Baxster" type="checkbox"><span class="filters__checkcross">Baxster Stockman</span></label></li>
-                            <li class="filters__items"><label class="filters__checkbox-indicator" for="Umbrella"><input class="visually-hidden checkbox" id="Umbrella" type="checkbox"><span class="filters__checkcross">Umbrella Inc</span></label></li>
-                            <li class="filters__items"><label class="filters__checkbox-indicator" for="Gibli"><input class="visually-hidden checkbox" id="Gibli" type="checkbox"><span class="filters__checkcross">Gibli</span></label></li>
+                            <li class="filters__items"><label class="filters__checkbox-indicator" for="Baxter"><input v-model="filter_manufacturers" class="visually-hidden checkbox" id="Baxter" value="Baxter" type="checkbox"><span class="filters__checkcross">Baxter Stockman</span></label></li>
+                            <li class="filters__items"><label class="filters__checkbox-indicator" for="Umbrella"><input v-model="filter_manufacturers"  class="visually-hidden checkbox" id="Umbrella" value="Umbrella" type="checkbox"><span class="filters__checkcross">Umbrella Inc</span></label></li>
+                            <li class="filters__items"><label class="filters__checkbox-indicator" for="Gibli"><input v-model="filter_manufacturers"  class="visually-hidden checkbox" id="Gibli" value="Gibli" type="checkbox"><span class="filters__checkcross">Gibli</span></label></li>
                         </ul>
                         <h3>Группы товаров</h3>
                         <ul class="filters__goods">
-                            <li class="filters__items"><label class="filters__radio-indicator" for="razor"><input name="goods-group" class="visually-hidden radio" id="razor" type="radio"><span class="filters__radiodot">Бритвенные принадлежности</span></label></li>
-                            <li class="filters__items"><label class="filters__radio-indicator" for="care"><input name="goods-group" class="visually-hidden radio" id="care" type="radio"><span class="filters__radiodot">Средства для ухода</span></label></li>
-                            <li class="filters__items"><label class="filters__radio-indicator" for="accessories"><input name="goods-group" class="visually-hidden radio" id="accessories" type="radio"><span class="filters__radiodot">Аксессуары</span></label></li>
+                            <li class="filters__items"><label class="filters__radio-indicator" for="razor"><input v-model="filter_group" name="goods-group" class="visually-hidden radio" id="razor" value="razor" type="radio"><span class="filters__radiodot">Бритвенные принадлежности</span></label></li>
+                            <li class="filters__items"><label class="filters__radio-indicator" for="care"><input v-model="filter_group" name="goods-group" class="visually-hidden radio" id="care" value="care" type="radio"><span class="filters__radiodot">Средства для ухода</span></label></li>
+                            <li class="filters__items"><label class="filters__radio-indicator" for="accessories"><input v-model="filter_group" name="goods-group" class="visually-hidden radio" id="accessories" value="accessories" type="radio"><span class="filters__radiodot">Аксессуары</span></label></li>
                         </ul>
-                        <button class="button filters__button">Показать</button>
+                        <button class="button filters__button" @click.prevent="filtersOn()">Показать</button>
                     </form>
                 </aside>
     
                 <div class="goods-wrapper">
-                    <section class="goods">
-                        <div class="item">
-                            <img src="@/images/goods/travel-kit.png" alt="" class="item__image">
-                            <h4 class="item__title">Набор для путешествий "Baxter of California"</h4>
-                            <div class="item__footer">
-                                <p class="item__price">2990</p>
-                                <button type="button" class="button item__buyBtn">Купить</button>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="@/images/goods/travel-kit.png" alt="" class="item__image">
-                            <h4 class="item__title">Набор для путешествий "Baxter of California"</h4>
-                            <div class="item__footer">
-                                <p class="item__price">2990</p>
-                                <button type="button" class="button item__buyBtn">Купить</button>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="@/images/goods/travel-kit.png" alt="" class="item__image">
-                            <h4 class="item__title">Набор для путешествий "Baxter of California"</h4>
-                            <div class="item__footer">
-                                <p class="item__price">2990</p>
-                                <button type="button" class="button item__buyBtn">Купить</button>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="@/images/goods/travel-kit.png" alt="" class="item__image">
-                            <h4 class="item__title">Набор для путешествий "Baxter of California"</h4>
-                            <div class="item__footer">
-                                <p class="item__price">2990</p>
-                                <button type="button" class="button item__buyBtn">Купить</button>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="@/images/goods/travel-kit.png" alt="" class="item__image">
-                            <h4 class="item__title">Набор для путешествий "Baxter of California"</h4>
-                            <div class="item__footer">
-                                <p class="item__price">2990</p>
-                                <button type="button" class="button item__buyBtn">Купить</button>
-                            </div>
-                        </div>
+                    <section class="goods" v-if="array.length">
+                        <Item v-for="(item, index) in array" 
+                        v-bind:item="item" 
+                        v-bind:key="index"
+                        v-bind:catalogPage="catalogPage"
+                        v-bind:groupByFilter="groupByFilter"
+                        />
                     </section>
-                    <ul class="catalog">
-                        <li class="catalog__pages"><button type="button" class="button">1</button></li>
-                        <li class="catalog__pages"><button type="button" class="button">2</button></li>
-                        <li class="catalog__pages"><button type="button" class="button">3</button></li>
-                        <li class="catalog__pages"><button type="button" class="button">4</button></li>
+                    <span v-else>Таких товаров пока нет</span>
+                    <ul class="catalog" v-if="!groupByFilter">
+                        <li class="catalog__pages"><button type="button" class="button" id="1" @click="catalogPageChange($event)">1</button></li>
+                        <li class="catalog__pages"><button type="button" class="button" id="2" @click="catalogPageChange($event)">2</button></li>
+                        <li class="catalog__pages"><button type="button" class="button" id="3" @click="catalogPageChange($event)">3</button></li>
+                        <li class="catalog__pages"><button type="button" class="button" id="4" @click="catalogPageChange($event)">4</button></li>
                     </ul>
                 </div>
             </div>
@@ -82,9 +49,73 @@
 </template>
 
 <script>
+import Item from '@/components/ShopItem.vue'
+
 export default {
-    methods: {
+    components:{
+        Item
     },
+    data() {
+        return {
+            groupByFilter: false,
+            filter_group: '',
+            filter_manufacturers: [],
+            catalogPage: 1,
+            array: [],
+            items: [
+            { src: 'travel-kit.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'], title: 'Набор для путешествий "Baxter of California"', price: 2990, catalog_page: 1, itemId: 1, manufacturer: 'Baxter', group: "accessories"},
+            { src: 'travel-kit.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Набор для путешествий "Gibli"', price: 2990, catalog_page: 1, itemId: 2, manufacturer: 'Gibli', group: "accessories"},
+            { src: 'travel-kit.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Набор для путешествий "Umbrella"', price: 2990, catalog_page: 1, itemId: 3, manufacturer: 'Umbrella', group: "accessories"},
+            { src: 'conditioner.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Увлажняющий кондиционер  «Baxter of California» Baxter', price: 301, catalog_page: 2, itemId: 4, manufacturer: 'Baxter', group: "accessories" }, 
+            { src: 'conditioner.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Увлажняющий кондиционер  «Baxter of California» Gibli', price: 301, catalog_page: 2, itemId: 5, manufacturer: 'Gibli', group: "accessories" }, 
+            { src: 'conditioner.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Увлажняющий кондиционер  «Baxter of California» Umbrella', price: 301, catalog_page: 2, itemId: 6, manufacturer: 'Umbrella', group: "accessories" }, 
+            { src: 'gel.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Гель для волос «AMERICAN CREW» Baxter', price: 301, catalog_page: 3, itemId: 7, manufacturer: 'Baxter', group: "care" }, 
+            { src: 'gel.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Гель для волос «AMERICAN CREW» Gibli', price: 301, catalog_page: 3, itemId: 8, manufacturer: 'Gibli', group: "care" }, 
+            { src: 'gel.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Гель для волос «AMERICAN CREW» Umbrella', price: 301, catalog_page: 3, itemId: 9, manufacturer: 'Umbrella', group: "care" }, 
+            { src: 'clay.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Глина для укладки волос  «American crew» Baxter', price: 501, catalog_page: 4, itemId: 10, manufacturer: 'Baxter', group: "care"},
+            { src: 'clay.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Глина для укладки волос  «American crew» Gibli', price: 501, catalog_page: 4, itemId: 11, manufacturer: 'Gibli', group: "care"},
+            { src: 'clay.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Глина для укладки волос  «American crew» Umbrella', price: 50001, catalog_page: 4, itemId: 12, manufacturer: 'Umbrella', group: "care"},
+            ]
+        }
+    },
+    methods: {
+        catalogPageChange(event){
+            this.array = this.items.filter((item)=>{
+                if(item.catalog_page == event.target.textContent)
+                return item 
+            }) 
+            this.catalogPage = event.target.id
+            for(let i = 0; i < document.querySelectorAll('.active').length; i++){
+                document.querySelectorAll('.active')[i].classList.remove('active')
+            }
+            document.getElementById(this.catalogPage).classList.add('active')
+        },
+        filtersOn(){
+            console.log(this.filter_manufacturers)
+            this.groupByFilter = true
+            if (this.filter_manufacturers.length == 0){
+                this.filter_manufacturers.push('Baxter', 'Gibli', 'Umbrella')
+                console.log(this.filter_manufacturers)  
+            }
+            this.array = this.items.filter((item)=>{
+                if(this.filter_manufacturers.includes(item.manufacturer) && this.filter_group == item.group){
+                    console.log('match')
+                    return item
+                } else if(this.filter_manufacturers.includes(item.manufacturer) && this.filter_group == '') {
+                    console.log('without group')
+                    return item
+                }
+            })
+        }
+    },
+    mounted() {
+        console.log('mounted', this.catalogPage)
+        document.getElementById(this.catalogPage).classList.add('active')
+        this.array = this.items.filter((item)=>{
+                if(item.catalog_page == this.catalogPage)
+                return item 
+            }) 
+        }
 }
 </script>
 
@@ -98,7 +129,10 @@ h3{
     font-size: 24px;
     margin-top: 25px;
 }
+
+
 .shop{
+    height: 100%;
     width: 100%;
     background-image: url('@/images/white-noise.png');
     padding: 50px 0;
@@ -106,6 +140,7 @@ h3{
 .container{
     margin: 0;
     padding: 0;
+    height: 100%;
     width: 65%;
     text-align: left;
     margin: 0 auto;
@@ -141,27 +176,6 @@ h3{
     }
 }
 
-.item{
-    &__image{
-        width: 100%;
-        height: auto;
-    }
-    &__footer{
-        background-color: #aaa;
-        display: flex;
-        width: 100%;
-    }
-    &__price{
-        display: block;
-        width: 60%;
-        text-align: center;
-        height: 100%;
-    }
-    &__buyBtn{
-        width: 40%;
-    }
-}
-
 .catalog{
     margin-top: 50px;
     display: flex;
@@ -172,16 +186,22 @@ h3{
         & button{
             width: 100%;
             height: 100%;
+            background-color: inherit;
             background-color: #000;
             color: #fff;
         }
         & button:hover{
             cursor: pointer;
+            background-color: #663d15;
+            color: #fff;
+            border: none;
         }
     }
 }
+
+
 .filters{
-    width: 180px;
+    width: fit-content;
     // word-wrap: break-word;
     &__button{
         margin-top: 50px;   
@@ -191,12 +211,12 @@ h3{
     &__items{
         margin-bottom: 20px;
         font-weight: 700;
-        cursor: pointer;
     }
     &__items:last-child{
         margin-bottom: 0;
     }
     &__checkbox-indicator{
+        cursor: pointer;
         position: relative;
         padding-left: 30px;
     }
@@ -269,17 +289,6 @@ h3{
     box-sizing: border-box;
 }
 
-.button{
-    background-color: #000;
-    color: #fff;
-    &:hover{
-        cursor: pointer;
-    }
-    &:active{
-        background-color: #fff;
-        color: #000
-    }
-}
 .goods{
     display: grid;
     width: 100%;
@@ -287,4 +296,9 @@ h3{
     gap: 20px;
 }
 
+.active{
+        background-color: #663d15!important;
+        color: #fff!important;
+        border: none;
+}
 </style>
