@@ -20,9 +20,14 @@ export default {
 }
 </script>
 
+<style>
+@import '@/assets/main.css';
+</style>
+
 <style lang="scss">
 
 html{
+font-family: "PTSans";
 height: 100%;
 width: 100%;
 }

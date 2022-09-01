@@ -205,4 +205,49 @@ export default {
         }
     }
 }
+
+@media (max-width: 1024px){
+    .content-container{
+        flex-direction: column;
+    }
+    .features{
+        width: 100%;
+    }
+    .pricelist{
+        width: 100%;
+        margin-top: 25px;
+        table{
+            width: 100%;
+        }
+    }
+    .about-us{
+        &__container{
+            flex-direction: column;
+            p{
+                width: 100%;
+            }
+        }
+    }
+    h2{
+        width: 55%;
+    }
+    .large{
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 767px){
+    .container{
+        width: 90%;
+    }
+}
+@media (max-width: 425px){
+.heading{
+    font-size: 20px;
+    width: 100%;
+}
+.large{
+    font-size: 26px;
+}
+}
 </style>

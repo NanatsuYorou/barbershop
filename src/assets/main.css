@@ -4,7 +4,7 @@
     font-style: normal;
     font-display: auto;
     unicode-range: U+000-5FF;
-    src: local("PTSans"), url("/fonts/PT_Sans-Regular.ttf") format("ttf")
+    src: local("PTSans"), url("@/fonts/PT_Sans-Regular.ttf")
 }
 @font-face {
     font-family: "PTSans";
@@ -12,7 +12,7 @@
     font-style: italic;
     font-display: auto;
     unicode-range: U+000-5FF;
-    src: local("PTSans"), url("/fonts/PT_Sans-Italic.ttf") format("ttf")
+    src: local("PTSans"), url("@/fonts/PT_Sans-Italic.ttf")
 }
 @font-face {
     font-family: "PTSans";
@@ -20,7 +20,7 @@
     font-style: normal;
     font-display: auto;
     unicode-range: U+000-5FF;
-    src: local("PTSans"), url("/fonts/PT_Sans-Bold.ttf") format("ttf")
+    src: local("PTSans"), url("@/fonts/PT_Sans-Bold.ttf")
 }
 @font-face {
     font-family: "PTSans";
@@ -28,5 +28,41 @@
     font-style: italic;
     font-display: auto;
     unicode-range: U+000-5FF;
-    src: local("PTSans"), url("/fonts/PT_Sans-BoldItalic.ttf") format("ttf")
+    src: local("PTSans"), url("@/fonts/PT_Sans-BoldItalic.ttf")
 }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #616161 #C9D2D4;
+  }
+  
+  /* Chrome, Edge and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+    width: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    border-radius: 0px;
+    background-color: #C9D2D4;
+  }
+  
+  *::-webkit-scrollbar-track:hover {
+    background-color: #AEB7B8;
+  }
+  
+  *::-webkit-scrollbar-track:active {
+    background-color: #989EA0;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #616161;
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #616161;
+  }
+  
+  *::-webkit-scrollbar-thumb:active {
+    background-color: #616161;
+  }

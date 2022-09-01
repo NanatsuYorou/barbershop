@@ -22,7 +22,10 @@
                             <li class="filters__items"><label class="filters__radio-indicator" for="care"><input v-model="filter_group" name="goods-group" class="visually-hidden radio" id="care" value="care" type="radio"><span class="filters__radiodot">Средства для ухода</span></label></li>
                             <li class="filters__items"><label class="filters__radio-indicator" for="accessories"><input v-model="filter_group" name="goods-group" class="visually-hidden radio" id="accessories" value="accessories" type="radio"><span class="filters__radiodot">Аксессуары</span></label></li>
                         </ul>
-                        <button class="button filters__button" @click.prevent="filtersOn()">Показать</button>
+                        <div class="filters__buttons">
+                            <button class="button filters__button" @click.prevent="filtersOn()">Показать</button>
+                            <button class="button filters__button" @click.prevent="filtersOff()">Сбросить</button>
+                        </div>
                     </form>
                 </aside>
     
@@ -36,7 +39,7 @@
                         />
                     </section>
                     <span v-else>Таких товаров пока нет</span>
-                    <ul class="catalog" v-if="!groupByFilter">
+                    <ul class="catalog">
                         <li class="catalog__pages"><button type="button" class="button" id="1" @click="catalogPageChange($event)">1</button></li>
                         <li class="catalog__pages"><button type="button" class="button" id="2" @click="catalogPageChange($event)">2</button></li>
                         <li class="catalog__pages"><button type="button" class="button" id="3" @click="catalogPageChange($event)">3</button></li>
@@ -85,31 +88,48 @@ export default {
                 return item 
             }) 
             this.catalogPage = event.target.id
-            for(let i = 0; i < document.querySelectorAll('.active').length; i++){
-                document.querySelectorAll('.active')[i].classList.remove('active')
+            let active_btns = document.querySelectorAll('.active')
+            for(let i = 0; i < active_btns.length; i++){
+                active_btns[i].classList.remove('active')
             }
             document.getElementById(this.catalogPage).classList.add('active')
         },
         filtersOn(){
-            console.log(this.filter_manufacturers)
             this.groupByFilter = true
             if (this.filter_manufacturers.length == 0){
                 this.filter_manufacturers.push('Baxter', 'Gibli', 'Umbrella')
-                console.log(this.filter_manufacturers)  
             }
             this.array = this.items.filter((item)=>{
                 if(this.filter_manufacturers.includes(item.manufacturer) && this.filter_group == item.group){
-                    console.log('match')
                     return item
                 } else if(this.filter_manufacturers.includes(item.manufacturer) && this.filter_group == '') {
-                    console.log('without group')
                     return item
                 }
             })
+            document.querySelector('.catalog').classList.add('visually-hidden')
+        },
+        filtersOff(){
+            let checkboxes = document.querySelectorAll('.checkbox')
+            let radios = document.querySelectorAll('.radio')
+            for(let i = 0; i < checkboxes.length; i++ ){
+                checkboxes[i].checked = false
+            }
+            for (let i = 0; i < radios.length; i++) {
+                if(radios[i].checked)
+                {
+                    console.log(radios[i])
+                    radios[i].checked = false
+                }
+            }
+            this.array = this.items.filter((item) => {
+                if(item.catalog_page == this.catalogPage)
+                    return item
+            })
+            document.querySelector('.catalog').classList.remove('visually-hidden')
+            document.getElementById(this.catalogPage).classList.add('active')
         }
     },
     mounted() {
-        console.log('mounted', this.catalogPage)
         document.getElementById(this.catalogPage).classList.add('active')
         this.array = this.items.filter((item)=>{
                 if(item.catalog_page == this.catalogPage)
@@ -207,6 +227,9 @@ h3{
         margin-top: 50px;   
         width: 110px;
         height: 45px;
+        &:last-child{
+            margin-top: 25px;
+        }
     }
     &__items{
         margin-bottom: 20px;

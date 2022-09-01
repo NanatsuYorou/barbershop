@@ -31,6 +31,7 @@ export default {
             document.querySelector('.menu-burger').classList.toggle('menu-clicked')
             document.querySelector('.header__menu').classList.toggle('menu-clicked')
             document.querySelector('.main').classList.toggle('visually-hidden')
+            document.querySelector('.main-mobile').classList.toggle('visually-hidden')
         }
     },
     watch: {
@@ -72,6 +73,7 @@ export default {
         }
     },
     mounted() {
+        document.querySelector('.main-mobile').classList.toggle('visually-hidden')
         if(document.querySelector('.active'))
                 {
                     document.querySelector('.active').classList.toggle('active')
@@ -100,7 +102,7 @@ header{
 
 .header{
     &__container{
-        width: 65%;
+        width: 70%;
         height: 70px;
         margin: 0 auto;
         display: flex;
@@ -249,6 +251,9 @@ ul{
     }
     .menu-burger.menu-clicked span{
         transform: scale(0);
+    }
+    .active{
+        border-bottom: 4px solid #000;
     }
 }
 

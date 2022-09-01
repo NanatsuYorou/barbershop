@@ -39,7 +39,7 @@ export default {
     width: 100%;
     background-color: rgb(33, 33, 33);
     &__container{
-        width: 65%;
+        width: 70%;
         height: 190px;
         margin: 0 auto;
         display: flex;
@@ -123,6 +123,10 @@ ul{
         height: 70%;
         box-sizing: border-box;
         margin: 0;
+        ul{
+            width: 80%;
+            margin: 0 auto;
+        }
         &__link{
             width: 35px;
             height: 35px;

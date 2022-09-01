@@ -6,7 +6,7 @@
       <ul class="nav__menu">
         <li class="nav__link"><span><router-link to="/">Главная</router-link></span></li>
         <li class="nav__link"><span><router-link to="/shop">Магазин</router-link></span></li>
-        <li class="nav__link grey-text"><span>{{this.item.title}}</span></li>
+        <li class="nav__link grey-text current-link"><span>{{this.item.title}}</span></li>
       </ul>
       <section class="item__about">
         <div class="item__image-container">
@@ -186,6 +186,37 @@ export default {
       height: 8px;
       transform: rotate(45deg);
     }
+  }
+}
+
+@media (max-width: 1024px){
+    .item{
+      &__about{
+        flex-direction: column;
+      }
+      &__descr{
+        width: 100%;
+      }
+      &__image-container{
+        min-width: 0;
+        width: 100%;
+        margin: 0 auto;
+        img{
+          max-width: 100%;
+        }
+      }
+    }
+}
+
+@media (max-width: 767px) {
+  .container{
+    width: 90%;
+  }
+}
+
+@media (max-width: 425px) {
+  .current-link{
+    display: none;
   }
 }
 </style>

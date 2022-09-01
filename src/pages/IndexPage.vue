@@ -381,7 +381,8 @@ time{
     }
     .form{
         label{
-            width: 90%;
+            width: 100%;
+            margin-right: 0;
         }
     }
     .contact__buttons{
