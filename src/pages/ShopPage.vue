@@ -28,17 +28,19 @@
                         </div>
                     </form>
                 </aside>
-    
-                <div v-if="items.length !== 0" class="goods-wrapper">
-                    <section class="goods" v-if="array.length">
-                        <Item v-for="(item, index) in array" 
-                        v-bind:item="item" 
-                        v-bind:key="index"
-                        v-bind:catalogPage="catalogPage"
-                        v-bind:groupByFilter="groupByFilter"
-                        />
-                    </section>
-                    <span v-else>Таких товаров пока нет</span>
+                <div class="wrapper__column">
+                    <div class="goods-wrapper">
+                        <div v-if="loading" class="lds-dual-ring"></div>
+                        <section class="goods" v-else-if="array.length">
+                            <Item v-for="(item, index) in array" 
+                            v-bind:item="item"  
+                            v-bind:key="index"
+                            v-bind:catalogPage="catalogPage"
+                            v-bind:groupByFilter="groupByFilter"
+                            />
+                        </section>
+                        <span v-else>Таких товаров пока нет</span>
+                    </div>
                     <ul class="catalog">
                         <li class="catalog__pages"><button type="button" class="button" id="1" @click="catalogPageChange($event)">1</button></li>
                         <li class="catalog__pages"><button type="button" class="button" id="2" @click="catalogPageChange($event)">2</button></li>
@@ -46,9 +48,8 @@
                         <li class="catalog__pages"><button type="button" class="button" id="4" @click="catalogPageChange($event)">4</button></li>
                     </ul>
                 </div>
-                <div v-else class="lds-dual-ring"></div>
             </div>
-        </div>  
+        </div>
     </section>
 </template>
 
@@ -66,16 +67,26 @@ export default {
             filter_manufacturers: [],
             catalogPage: 1,
             array: [],
-            items: []
+            loading: true,
         }
     },
     methods: {
+        async fetchItems(filters = {catalog_page: this.catalogPage, filter_group: this.filter_group, filter_manufacturers: this.filter_manufacturers}){
+            this.loading = true
+            try {
+                let body = filters
+                body = JSON.stringify(body)
+                let temp = await fetch('/api/', {method: "POST", body, headers: {"Content-Type": "application/json"}})
+                this.array = await temp.json()
+            } catch (error) {
+                console.error(error.message)
+            } finally{
+                this.loading = false
+            }
+        },
         catalogPageChange(event){
-            this.array = this.items.filter((item)=>{
-                if(item.catalog_page == event.target.textContent)
-                return item 
-            }) 
             this.catalogPage = event.target.id
+            this.fetchItems()
             let active_btns = document.querySelectorAll('.active')
             for(let i = 0; i < active_btns.length; i++){
                 active_btns[i].classList.remove('active')
@@ -87,47 +98,29 @@ export default {
             if (this.filter_manufacturers.length == 0){
                 this.filter_manufacturers.push('Baxter', 'Gibli', 'Umbrella')
             }
-            this.array = this.items.filter((item)=>{
-                if(this.filter_manufacturers.includes(item.manufacturer) && this.filter_group == item.group){
-                    return item
-                } else if(this.filter_manufacturers.includes(item.manufacturer) && this.filter_group == '') {
-                    return item
-                }
-            })
+
+            this.fetchItems()
+
+
             document.querySelector('.catalog').classList.add('visually-hidden')
         },
         filtersOff(){
-            let checkboxes = document.querySelectorAll('.checkbox')
-            let radios = document.querySelectorAll('.radio')
-            for(let i = 0; i < checkboxes.length; i++ ){
-                checkboxes[i].checked = false
-            }
-            for (let i = 0; i < radios.length; i++) {
-                if(radios[i].checked)
-                {
-                    console.log(radios[i])
-                    radios[i].checked = false
-                }
-            }
-            this.array = this.items.filter((item) => {
-                if(item.catalog_page == this.catalogPage)
-                    return item
-            })
+
+            
+            this.filter_group = ''
+            this.filter_manufacturers = []
+            this.catalogPage = 1
+            this.fetchItems()
+
             document.querySelector('.catalog').classList.remove('visually-hidden')
             document.getElementById(this.catalogPage).classList.add('active')
         }
     },
     async mounted() {
         try {
-            let temp = await fetch('/api/', {method: "GET"})
-            this.items = await temp.json()
-            console.log('items', this.items)
-            this.array = this.items.filter((item)=>{
-                if(item.catalog_page == this.catalogPage)
-                return item 
-            })
             document.getElementById(this.catalogPage).classList.add('active')
-            console.log('array', this.array) 
+            let temp = await this.fetchItems()
+            this.array = await temp.json()
         } catch (error) {
             console.warn(error.message) 
         }
@@ -301,11 +294,21 @@ h3{
 
 .wrapper{
     display: flex;
+    &__column{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column; 
+        flex-grow: 1;
+        align-items: center;
+        margin-left: 100px;
+    }
 }
 
 .goods-wrapper{
-    width: calc(100% - 180px);
-    margin-left: 100px;
+    width: 100%;
+    flex-grow: 1;
+    height: 100%;   
     box-sizing: border-box;
 }
 
@@ -323,10 +326,10 @@ h3{
 }
 
 .lds-dual-ring {
-  display: inline-block;
+  display: block;
   width: 80px;
   height: 80px;
-  margin: 0 auto;
+  margin: 50px auto;
 }
 .lds-dual-ring:after {
   content: " ";

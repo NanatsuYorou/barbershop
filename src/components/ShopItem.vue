@@ -37,6 +37,9 @@ export default {
     width: 220px;
     &__title{
         font-size: 14px;
+        text-overflow: ellipsis;
+        height: 50px;
+        overflow: hidden;
     }
     &__container{
         height: 220px;

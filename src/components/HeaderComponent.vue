@@ -45,9 +45,9 @@ export default {
                 {
                     document.querySelector('.active').classList.toggle('active')
                 }
-                if(newpath !== null && newpath !== '')
+                if(newpath !== null && newpath !== '' && document.querySelector('.'+newpath.replace('/', '')))
                 {
-                    let curLink = document.querySelector('.'+newpath)
+                    let curLink = document.querySelector('.'+newpath.replace('/', ''))
                     curLink.classList.toggle('active')
                 }
                 // При переходе из меню бургера с мобилок
@@ -85,7 +85,7 @@ export default {
         {
             document.querySelector('.active').classList.toggle('active')
         }
-        if(this.path !== null && this.path !== '')
+        if(this.path !== null && this.path !== '' && document.querySelector('.'+ this.path.replace('/', '')) !== null)
         {
             let curLink = document.querySelector('.'+ this.path.replace('/', ''))
             curLink.classList.toggle('active')
