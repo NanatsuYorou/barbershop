@@ -29,7 +29,7 @@
                     </form>
                 </aside>
     
-                <div class="goods-wrapper">
+                <div v-if="items.length !== 0" class="goods-wrapper">
                     <section class="goods" v-if="array.length">
                         <Item v-for="(item, index) in array" 
                         v-bind:item="item" 
@@ -46,8 +46,9 @@
                         <li class="catalog__pages"><button type="button" class="button" id="4" @click="catalogPageChange($event)">4</button></li>
                     </ul>
                 </div>
+                <div v-else class="lds-dual-ring"></div>
             </div>
-        </div>
+        </div>  
     </section>
 </template>
 
@@ -65,20 +66,7 @@ export default {
             filter_manufacturers: [],
             catalogPage: 1,
             array: [],
-            items: [
-            { src: 'travel-kit.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'], title: 'Набор для путешествий "Baxter of California"', price: 2990, catalog_page: 1, itemId: 1, manufacturer: 'Baxter', group: "accessories"},
-            { src: 'travel-kit.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Набор для путешествий "Gibli"', price: 2990, catalog_page: 1, itemId: 2, manufacturer: 'Gibli', group: "accessories"},
-            { src: 'travel-kit.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Набор для путешествий "Umbrella"', price: 2990, catalog_page: 1, itemId: 3, manufacturer: 'Umbrella', group: "accessories"},
-            { src: 'conditioner.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Увлажняющий кондиционер  «Baxter of California» Baxter', price: 301, catalog_page: 2, itemId: 4, manufacturer: 'Baxter', group: "accessories" }, 
-            { src: 'conditioner.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Увлажняющий кондиционер  «Baxter of California» Gibli', price: 301, catalog_page: 2, itemId: 5, manufacturer: 'Gibli', group: "accessories" }, 
-            { src: 'conditioner.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Увлажняющий кондиционер  «Baxter of California» Umbrella', price: 301, catalog_page: 2, itemId: 6, manufacturer: 'Umbrella', group: "accessories" }, 
-            { src: 'gel.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Гель для волос «AMERICAN CREW» Baxter', price: 301, catalog_page: 3, itemId: 7, manufacturer: 'Baxter', group: "care" }, 
-            { src: 'gel.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Гель для волос «AMERICAN CREW» Gibli', price: 301, catalog_page: 3, itemId: 8, manufacturer: 'Gibli', group: "care" }, 
-            { src: 'gel.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Гель для волос «AMERICAN CREW» Umbrella', price: 301, catalog_page: 3, itemId: 9, manufacturer: 'Umbrella', group: "care" }, 
-            { src: 'clay.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Глина для укладки волос  «American crew» Baxter', price: 501, catalog_page: 4, itemId: 10, manufacturer: 'Baxter', group: "care"},
-            { src: 'clay.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Глина для укладки волос  «American crew» Gibli', price: 501, catalog_page: 4, itemId: 11, manufacturer: 'Gibli', group: "care"},
-            { src: 'clay.png', images: ['travel-kit2.png', 'travel-kit3.png', 'travel-kit4.png'],  title: 'Глина для укладки волос  «American crew» Umbrella', price: 50001, catalog_page: 4, itemId: 12, manufacturer: 'Umbrella', group: "care"},
-            ]
+            items: []
         }
     },
     methods: {
@@ -129,13 +117,22 @@ export default {
             document.getElementById(this.catalogPage).classList.add('active')
         }
     },
-    mounted() {
-        document.getElementById(this.catalogPage).classList.add('active')
-        this.array = this.items.filter((item)=>{
+    async mounted() {
+        try {
+            let temp = await fetch('/api/', {method: "GET"})
+            this.items = await temp.json()
+            console.log('items', this.items)
+            this.array = this.items.filter((item)=>{
                 if(item.catalog_page == this.catalogPage)
                 return item 
-            }) 
+            })
+            document.getElementById(this.catalogPage).classList.add('active')
+            console.log('array', this.array) 
+        } catch (error) {
+            console.warn(error.message) 
         }
+
+    }
 }
 </script>
 
@@ -323,5 +320,31 @@ h3{
         background-color: #663d15!important;
         color: #fff!important;
         border: none;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

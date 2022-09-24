@@ -7,9 +7,8 @@
                 <span></span>
             </div>
             <ul class="header__menu">
-                <li v-if="logoHidden" class="header__link main"><router-link to="/"><img src="@/images/logo.svg" alt=""></router-link></li>
-                <li v-if="logoHidden" class="header__link main-mobile"><router-link to="/">ГЛАВНАЯ</router-link></li>
-                <li class="header__link info"><router-link to="">ИНФОРМАЦИЯ</router-link></li>
+                <li v-if="logoShown" class="header__link main"><router-link to="/"><img src="@/images/logo.svg" alt=""></router-link></li>
+                <li v-show="width <= 1024 && logoShown" class="header__link main-mobile"><router-link to="/">ГЛАВНАЯ</router-link></li>
                 <li class="header__link news"><router-link to="">НОВОСТИ</router-link></li>
                 <li class="header__link pricelist"><router-link to="/pricelist">ПРАЙС-ЛИСТ</router-link></li>
                 <li class="header__link shop"><router-link to="/shop">МАГАЗИН</router-link></li>
@@ -24,6 +23,7 @@
 export default {
     data() {
         return {
+            width: document.documentElement.clientWidth
         }
     },
     methods:{
@@ -31,11 +31,14 @@ export default {
             document.querySelector('.menu-burger').classList.toggle('menu-clicked')
             document.querySelector('.header__menu').classList.toggle('menu-clicked')
             document.querySelector('.main').classList.toggle('visually-hidden')
-            document.querySelector('.main-mobile').classList.toggle('visually-hidden')
+        },
+        updateWidth(){
+            this.width = document.documentElement.clientWidth
+            console.log(this.width)
         }
     },
     watch: {
-        path: {
+        path: { 
             handler(newpath) {
                 // Подчеркикание текущей открытой странице в хедере
                 if(document.querySelector('.active'))
@@ -55,34 +58,41 @@ export default {
                     }
                 }    
             }
-        }
+        },
+        logoShown: {
+            handler(value){
+                console.log(value)
+            }
+        },
     },
     computed: {
-         path() 
+         path()
         {
             let path = this.$route.path.replace('/', '')
             return path
         },
-        logoHidden(){
-            let logoHidden
+        logoShown(){
+            let logoShown
            if (this.$route.path !== '/')
-                logoHidden = this.$route.path
+                logoShown = this.$route.path
             else
-                logoHidden = false
-           return logoHidden
+                logoShown = false
+            return logoShown
         }
     },
     mounted() {
-        document.querySelector('.main-mobile').classList.toggle('visually-hidden')
         if(document.querySelector('.active'))
-                {
-                    document.querySelector('.active').classList.toggle('active')
-                }
-                if(this.path !== null && this.path !== '')
-                {
-                    let curLink = document.querySelector('.'+ this.path.replace('/', ''))
-                    curLink.classList.toggle('active')
-                }   
+        {
+            document.querySelector('.active').classList.toggle('active')
+        }
+        if(this.path !== null && this.path !== '')
+        {
+            let curLink = document.querySelector('.'+ this.path.replace('/', ''))
+            curLink.classList.toggle('active')
+        }   
+    },
+    created() {
+        window.addEventListener('resize', this.updateWidth )
     },
 }
 </script>

@@ -1,0 +1,15 @@
+[
+    { "src": "travel-kit.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"], "title": "Набор для путешествий 'Baxter of California'", "price": 2990, "catalog_page": 1, "itemId": 1, "manufacturer": "Baxter", "group": "accessories"},
+    { "src": "travel-kit.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Набор для путешествий 'Gibli'", "price": 2990, "catalog_page": 1, "itemId": 2, "manufacturer": "Gibli", "group": "accessories"},
+    { "src": "travel-kit.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Набор для путешествий 'Umbrella'", "price": 2990, "catalog_page": 1, "itemId": 3, "manufacturer": "Umbrella", "group": "accessories"},
+    { "src": "conditioner.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Увлажняющий кондиционер  «Baxter of California» Baxter", "price": 301, "catalog_page": 2, "itemId": 4, "manufacturer": "Baxter", "group": "accessories" }, 
+    { "src": "conditioner.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Увлажняющий кондиционер  «Baxter of California» Gibli", "price": 301, "catalog_page": 2, "itemId": 5, "manufacturer": "Gibli", "group": "accessories" }, 
+    { "src": "conditioner.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Увлажняющий кондиционер  «Baxter of California» Umbrella", "price": 301, "catalog_page": 2, "itemId": 6, "manufacturer": "Umbrella", "group": "accessories" }, 
+    { "src": "gel.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Гель для волос «AMERICAN CREW» Baxter", "price": 301, "catalog_page": 3, "itemId": 7, "manufacturer": "Baxter", "group": "care" }, 
+    { "src": "gel.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Гель для волос «AMERICAN CREW» Gibli", "price": 301, "catalog_page": 3, "itemId": 8, "manufacturer": "Gibli", "group": "care" }, 
+    { "src": "gel.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Гель для волос «AMERICAN CREW» Umbrella", "price": 301, "catalog_page": 3, "itemId": 9, "manufacturer": "Umbrella", "group": "care" }, 
+    { "src": "clay.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Глина для укладки волос  «American crew» Baxter", "price": 501, "catalog_page": 4, "itemId": 10, "manufacturer": "Baxter", "group": "care"},
+    { "src": "clay.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Глина для укладки волос  «American crew» Gibli", "price": 501, "catalog_page": 4, "itemId": 11, "manufacturer": "Gibli", "group": "care"},
+    { "src": "clay.png", "images": ["travel-kit2.png", "travel-kit3.png", "travel-kit4.png"],  "title": "Глина для укладки волос  «American crew» Umbrella", "price": 50001, "catalog_page": 4, "itemId": 12, "manufacturer": "Umbrella", "group": "care"}
+            
+]
